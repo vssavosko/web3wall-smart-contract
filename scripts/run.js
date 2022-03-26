@@ -1,28 +1,27 @@
 const main = async () => {
-  const [owner, randomPerson] = await hre.ethers.getSigners();
-
   const wallContractFactory = await hre.ethers.getContractFactory('Wall');
-  const wallContract = await wallContractFactory.deploy();
+  const wallContract = await wallContractFactory.deploy({
+    value: hre.ethers.utils.parseEther('0.05'),
+  });
   await wallContract.deployed();
 
   console.log('Contract deployed to:', wallContract.address);
-  console.log('Contract deployed by:', owner.address);
 
-  let postCount;
+  let contractBalance = await hre.ethers.provider.getBalance(wallContract.address);
 
-  postCount = await wallContract.getTotalPosts();
+  console.log('Contract balance:', hre.ethers.utils.formatEther(contractBalance));
 
-  let postTxn = await wallContract.post();
-
-  await postTxn.wait();
-
-  postCount = await wallContract.getTotalPosts();
-
-  postTxn = await wallContract.connect(randomPerson).post();
+  let postTxn = await wallContract.post('A message!');
 
   await postTxn.wait();
 
-  postCount = await wallContract.getTotalPosts();
+  contractBalance = await hre.ethers.provider.getBalance(wallContract.address);
+
+  console.log('Contract balance:', hre.ethers.utils.formatEther(contractBalance));
+
+  let allPosts = await wallContract.getAllPosts();
+
+  console.log(allPosts);
 };
 
 (async () => {
