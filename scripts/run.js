@@ -11,9 +11,13 @@ const main = async () => {
 
   console.log('Contract balance:', hre.ethers.utils.formatEther(contractBalance));
 
-  let postTxn = await wallContract.post('A message!');
+  const postTxn = await wallContract.post('This is post #1');
 
   await postTxn.wait();
+
+  const postTxn2 = await wallContract.post('This is post #2');
+
+  await postTxn2.wait();
 
   contractBalance = await hre.ethers.provider.getBalance(wallContract.address);
 
