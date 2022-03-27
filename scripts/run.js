@@ -1,41 +1,39 @@
 const main = async () => {
-  const wallContractFactory = await hre.ethers.getContractFactory('Wall');
-  const wallContract = await wallContractFactory.deploy({
+  const [owner] = await hre.ethers.getSigners();
+  const web3WallContractFactory = await hre.ethers.getContractFactory('Web3Wall');
+  const web3WallContract = await web3WallContractFactory.deploy({
     value: hre.ethers.utils.parseEther('0.05'),
   });
-  await wallContract.deployed();
+  await web3WallContract.deployed();
 
-  console.log('Contract deployed to:', wallContract.address);
+  console.log('Contract deployed to:', web3WallContract.address);
+  console.log('Address of the contract owner:', owner.address);
 
-  let contractBalance = await hre.ethers.provider.getBalance(wallContract.address);
-
-  console.log('Contract balance:', hre.ethers.utils.formatEther(contractBalance));
-
-  const postTxn = await wallContract.post('This is post #1');
-
-  await postTxn.wait();
-
-  const postTxn2 = await wallContract.post('This is post #2');
-
-  await postTxn2.wait();
-
-  contractBalance = await hre.ethers.provider.getBalance(wallContract.address);
+  let contractBalance = await hre.ethers.provider.getBalance(web3WallContract.address);
 
   console.log('Contract balance:', hre.ethers.utils.formatEther(contractBalance));
 
-  let allPosts = await wallContract.getAllPosts();
+  const createPostTxn = await web3WallContract.createPost('This is post #1');
+
+  await createPostTxn.wait();
+
+  const createPostTxn2 = await web3WallContract.createPost('This is post #2');
+
+  await createPostTxn2.wait();
+
+  contractBalance = await hre.ethers.provider.getBalance(web3WallContract.address);
+
+  console.log('Contract balance:', hre.ethers.utils.formatEther(contractBalance));
+
+  let allPosts = await web3WallContract.getAllPosts();
 
   console.log(allPosts);
 };
 
-(async () => {
-  try {
-    await main();
-
-    process.exit(0);
-  } catch (error) {
-    console.log(error);
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
 
     process.exit(1);
-  }
-})();
+  });
