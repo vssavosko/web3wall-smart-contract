@@ -8,7 +8,7 @@ contract Wall {
     uint256 totalPosts;
     uint256 private seed;
 
-    event NewPost(address indexed from, uint256 timestamp, string message);
+    event NewPost(address indexed fromUser, uint256 timestamp, string message);
 
     struct Post {
         address user;
@@ -21,8 +21,6 @@ contract Wall {
     mapping(address => uint256) public lastPostedAt;
 
     constructor() payable {
-        console.log("Yo yo, I am a contract and I am smart");
-
         seed = (block.timestamp + block.difficulty) % 100;
     }
 
@@ -36,17 +34,11 @@ contract Wall {
 
         totalPosts += 1;
 
-        console.log("%s has posted!", msg.sender);
-
         posts.push(Post(msg.sender, block.timestamp, _message));
 
         seed = (block.difficulty + block.timestamp + seed) % 100;
 
-        console.log("Random # generated: %d", seed);
-
         if (seed <= 50) {
-            console.log("%s won!", msg.sender);
-
             uint256 prizeAmount = 0.0001 ether;
 
             require(
@@ -67,8 +59,6 @@ contract Wall {
     }
 
     function getTotalPosts() public view returns (uint256) {
-        console.log("We have %d total posts!", totalPosts);
-
         return totalPosts;
     }
 }
