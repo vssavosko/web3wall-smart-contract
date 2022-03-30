@@ -1,15 +1,16 @@
 import { ethers } from "hardhat";
 
 const main = async () => {
-  const [owner] = await ethers.getSigners();
+  const [signer] = await ethers.getSigners();
   const web3WallContractFactory = await ethers.getContractFactory("Web3Wall");
   const web3WallContract = await web3WallContractFactory.deploy({
     value: ethers.utils.parseEther("0.05"), // TODO: check how to deploy with VLA
   });
+
   await web3WallContract.deployed();
 
   console.log("Web3Wall deployed to:", web3WallContract.address);
-  console.log("Address of the contract owner:", owner.address);
+  console.log("Address of the contract signer:", signer.address);
 
   let contractBalance = await ethers.provider.getBalance(web3WallContract.address);
 
