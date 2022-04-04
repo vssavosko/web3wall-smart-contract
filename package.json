@@ -1,12 +1,12 @@
 {
   "name": "web3wall-smart-contract",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "scripts": {
-    "start": "npx hardhat run scripts/run.ts",
-    "deploy-mainnet": "npx hardhat run scripts/deploy.ts --network mainnet",
-    "deploy-rinkeby": "npx hardhat run scripts/deploy.ts --network rinkeby",
-    "verify-mainnet": "npx hardhat run scripts/verify.ts --network mainnet",
-    "verify-rinkeby": "npx hardhat run scripts/verify.ts --network rinkeby"
+    "deploy:localhost": "npx hardhat run scripts/run.ts",
+    "deploy:mainnet": "npx hardhat run scripts/deploy.ts --network mainnet",
+    "deploy:rinkeby": "npx hardhat run scripts/deploy.ts --network rinkeby",
+    "verify:mainnet": "npx hardhat run scripts/verify.ts --network mainnet",
+    "verify:rinkeby": "npx hardhat run scripts/verify.ts --network rinkeby"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/vssavosko/web3wall-smart-contract/issues"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.5.0"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.5",

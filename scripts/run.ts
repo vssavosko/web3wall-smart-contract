@@ -1,20 +1,34 @@
+import { Contract } from "ethers";
 import { ethers } from "hardhat";
 
+import vladoCoinAbi from "../abi/vladoCoinAbi.json";
+
+const checkAccountBalance = async (contractWithSigner: Contract, contractAddress: string) => {
+  const contractBalance = await contractWithSigner.balanceOf(contractAddress);
+
+  console.log("Contract balance:", ethers.utils.formatEther(contractBalance));
+};
+
 const main = async () => {
-  const [signer] = await ethers.getSigners();
+  const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, ethers.provider);
   const web3WallContractFactory = await ethers.getContractFactory("Web3Wall");
-  const web3WallContract = await web3WallContractFactory.deploy({
-    value: ethers.utils.parseEther("0.05"), // TODO: check how to deploy with VLA
-  });
+  const web3WallContract = await web3WallContractFactory.deploy();
 
   await web3WallContract.deployed();
 
   console.log("Web3Wall deployed to:", web3WallContract.address);
-  console.log("Address of the contract signer:", signer.address);
 
-  let contractBalance = await ethers.provider.getBalance(web3WallContract.address);
+  const vladoCoinContract = new ethers.Contract(
+    process.env.VLADO_COIN_CONTRACT_ADDRESS!,
+    vladoCoinAbi,
+    signer,
+  );
 
-  console.log("Contract balance:", ethers.utils.formatEther(contractBalance));
+  const contractWithSigner = vladoCoinContract.connect(signer);
+
+  await contractWithSigner.transfer(web3WallContract.address, ethers.utils.parseEther("1000"));
+
+  await checkAccountBalance(contractWithSigner, web3WallContract.address);
 
   const createPostTxn = await web3WallContract.createPost("This is post #1");
 
@@ -24,9 +38,7 @@ const main = async () => {
 
   await createPostTxn2.wait();
 
-  contractBalance = await ethers.provider.getBalance(web3WallContract.address);
-
-  console.log("Contract balance:", ethers.utils.formatEther(contractBalance));
+  await checkAccountBalance(contractWithSigner, web3WallContract.address);
 
   const allPosts = await web3WallContract.getAllPosts();
 
