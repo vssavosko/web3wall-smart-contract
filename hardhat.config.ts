@@ -10,18 +10,24 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
+const rinkebyNetworkUrl = `https://eth-rinkeby.alchemyapi.io/v2/${process.env.DEV_ALCHEMY_KEY}`;
 const accounts = process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [];
 
 const config: HardhatUserConfig = {
   solidity: "0.8.0",
   networks: {
+    hardhat: {
+      forking: {
+        url: rinkebyNetworkUrl,
+      },
+    },
     mainnet: {
       chainId: 1,
-      url: process.env.PROD_ALCHEMY_KEY,
+      url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.PROD_ALCHEMY_KEY}`,
       accounts,
     },
     rinkeby: {
-      url: process.env.DEV_ALCHEMY_KEY,
+      url: rinkebyNetworkUrl,
       accounts,
     },
   },

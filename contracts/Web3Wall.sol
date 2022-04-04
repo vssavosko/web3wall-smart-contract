@@ -4,6 +4,8 @@ pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
 
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+
 contract Web3Wall {
     struct Post {
         address fromUser;
@@ -11,10 +13,13 @@ contract Web3Wall {
         string message;
     }
 
+    IERC20 private vladoCoin = IERC20(0x171568D895120Cd57Bd64270f2501C88b5067B5b);
+
+    Post[] public posts;
+
     uint256 public totalPosts;
     uint256 private seed;
-
-    Post[] posts;
+    uint256 private prizeAmount = 100 ether;
 
     mapping(address => uint256) public lastPostedAt;
 
@@ -32,16 +37,12 @@ contract Web3Wall {
         seed = getSeed();
 
         if (seed <= 50) {
-            uint256 prizeAmount = 0.0001 ether;
-
             require(
-                prizeAmount <= address(this).balance,
+                prizeAmount <= vladoCoin.balanceOf(address(this)),
                 "Trying to withdraw more money than the contract has"
             );
 
-            (bool success, ) = (msg.sender).call{value: prizeAmount}("");
-
-            require(success, "Failed to withdraw money from contract");
+            vladoCoin.transfer(msg.sender, prizeAmount);
         }
     }
 

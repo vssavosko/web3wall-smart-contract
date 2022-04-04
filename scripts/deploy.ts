@@ -2,9 +2,7 @@ import { ethers } from "hardhat";
 
 const main = async () => {
   const web3WallContractFactory = await ethers.getContractFactory("Web3Wall");
-  const web3WallContract = await web3WallContractFactory.deploy({
-    value: ethers.utils.parseEther("0.001"), // TODO: check how to deploy with VLA
-  });
+  const web3WallContract = await web3WallContractFactory.deploy();
 
   await web3WallContract.deployed();
 
