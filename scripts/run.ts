@@ -26,17 +26,13 @@ const main = async () => {
 
   const contractWithSigner = vladoCoinContract.connect(signer);
 
-  await contractWithSigner.transfer(web3WallContract.address, ethers.utils.parseEther("1000"));
+  await contractWithSigner.transfer(web3WallContract.address, ethers.utils.parseEther("15000"));
 
   await checkAccountBalance(contractWithSigner, web3WallContract.address);
 
   const createPostTxn = await web3WallContract.createPost("This is post #1");
 
   await createPostTxn.wait();
-
-  const createPostTxn2 = await web3WallContract.createPost("This is post #2");
-
-  await createPostTxn2.wait();
 
   await checkAccountBalance(contractWithSigner, web3WallContract.address);
 
