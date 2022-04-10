@@ -1,12 +1,13 @@
 {
   "name": "web3wall-smart-contract",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "scripts": {
-    "deploy:localhost": "npx hardhat run scripts/run.ts",
+    "deploy:localhost": "npx hardhat run scripts/deploy-localhost.ts",
     "deploy:mainnet": "npx hardhat run scripts/deploy.ts --network mainnet",
     "deploy:rinkeby": "npx hardhat run scripts/deploy.ts --network rinkeby",
     "verify:mainnet": "npx hardhat run scripts/verify.ts --network mainnet",
-    "verify:rinkeby": "npx hardhat run scripts/verify.ts --network rinkeby"
+    "verify:rinkeby": "npx hardhat run scripts/verify.ts --network rinkeby",
+    "test": "npx hardhat test"
   },
   "repository": {
     "type": "git",

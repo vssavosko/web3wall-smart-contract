@@ -11,6 +11,7 @@ const checkAccountBalance = async (contractWithSigner: Contract, contractAddress
 
 const main = async () => {
   const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, ethers.provider);
+
   const web3WallContractFactory = await ethers.getContractFactory("Web3Wall");
   const web3WallContract = await web3WallContractFactory.deploy();
 
