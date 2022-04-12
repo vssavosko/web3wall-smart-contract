@@ -11,7 +11,7 @@ describe("Web3Wall contract", function () {
   let contractWithSigner: Contract;
 
   beforeEach(async function () {
-    const provider = new ethers.providers.AlchemyProvider("rinkeby", process.env.DEV_ALCHEMY_KEY);
+    const provider = new ethers.providers.AlchemyProvider("rinkeby");
     const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
 
     const web3WallContractFactory = await ethers.getContractFactory("Web3Wall");
