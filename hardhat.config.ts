@@ -13,6 +13,8 @@ dotenv.config();
 const rinkebyNetworkUrl = `https://eth-rinkeby.alchemyapi.io/v2/${process.env.DEV_ALCHEMY_KEY}`;
 const accounts = process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [];
 
+console.log("test", process.env.PRIVATE_KEY !== undefined ? "yo it works" : "no :(");
+
 const config: HardhatUserConfig = {
   solidity: "0.8.0",
   networks: {

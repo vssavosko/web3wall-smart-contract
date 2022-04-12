@@ -30,5 +30,7 @@ jobs:
           DEPLOYED_CONTRACT_ADDRESS: ${{ secrets.DEPLOYED_CONTRACT_ADDRESS }}
           VLADO_COIN_CONTRACT_ADDRESS: ${{ secrets.VLADO_COIN_CONTRACT_ADDRESS }}
         run: npm install
+      - name: Compile
+        run: npx hardhat compile
       - name: Run unit tests
         run: npm run test
