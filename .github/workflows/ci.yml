@@ -3,15 +3,9 @@ on:
   push:
   pull_request:
     branches: [master]
-env:
-  PROD_ALCHEMY_KEY: ${{ secrets.PROD_ALCHEMY_KEY }}
-  DEV_ALCHEMY_KEY: ${{ secrets.DEV_ALCHEMY_KEY }}
-  ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
-  PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-  DEPLOYED_CONTRACT_ADDRESS: ${{ secrets.DEPLOYED_CONTRACT_ADDRESS }}
-  VLADO_COIN_CONTRACT_ADDRESS: ${{ secrets.VLADO_COIN_CONTRACT_ADDRESS }}
 jobs:
   unit-tests:
+    environment: Web3Wall
     runs-on: ubuntu-latest
     steps:
       - name: Check out source code
@@ -29,6 +23,13 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        env:
+          PROD_ALCHEMY_KEY: ${{ secrets.PROD_ALCHEMY_KEY }}
+          DEV_ALCHEMY_KEY: ${{ secrets.DEV_ALCHEMY_KEY }}
+          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          DEPLOYED_CONTRACT_ADDRESS: ${{ secrets.DEPLOYED_CONTRACT_ADDRESS }}
+          VLADO_COIN_CONTRACT_ADDRESS: ${{ secrets.VLADO_COIN_CONTRACT_ADDRESS }}
         run: npm install
       - name: Compile
         run: npx hardhat compile
