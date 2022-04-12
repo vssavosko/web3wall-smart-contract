@@ -26,6 +26,8 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm install
+      - name: Check
+        run: echo "The VLADO_COIN_CONTRACT_ADDRESS is:${{env.VLADO_COIN_CONTRACT_ADDRESS}}"
       - name: Compile
         run: npx hardhat compile
       - name: Run unit tests
