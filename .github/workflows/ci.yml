@@ -1,0 +1,27 @@
+name: tests
+on:
+  push:
+  pull_request:
+    branches: [master]
+env:
+  PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+  VLADO_COIN_CONTRACT_ADDRESS: ${{ secrets.VLADO_COIN_CONTRACT_ADDRESS }}
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+      - name: Set up node
+        uses: actions/setup-node@v1
+      - name: use cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        run: npm install
+      - name: Run unit tests
+        run: npm run test
