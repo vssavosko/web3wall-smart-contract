@@ -14,6 +14,7 @@ const rinkebyNetworkUrl = `https://eth-rinkeby.alchemyapi.io/v2/${process.env.DE
 const accounts = process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [];
 
 console.log("test", process.env.PRIVATE_KEY !== undefined ? "yo it works" : "no :(");
+console.log("VLADO_COIN_CONTRACT_ADDRESS", process.env.VLADO_COIN_CONTRACT_ADDRESS);
 
 const config: HardhatUserConfig = {
   solidity: "0.8.0",
