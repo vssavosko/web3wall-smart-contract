@@ -17,6 +17,7 @@ const config: HardhatUserConfig = {
   solidity: "0.8.0",
   networks: {
     hardhat: {
+      blockGasLimit: 3000000,
       forking: {
         url: rinkebyNetworkUrl,
       },
