@@ -4,7 +4,6 @@ on:
     branches: [master]
 jobs:
   unit-tests:
-    environment: Web3Wall
     runs-on: ubuntu-latest
     steps:
       - name: Check out source code
