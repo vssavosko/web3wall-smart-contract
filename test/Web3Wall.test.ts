@@ -11,11 +11,11 @@ describe("Web3Wall contract", function () {
   let contractWithSigner: Contract;
 
   beforeEach(async function () {
-    console.log(
-      "process.env.PRIVATE_KEY",
-      process.env.PRIVATE_KEY !== "undefined" ? "yo" : "shhhh",
+    const etherscanProvider = new ethers.providers.EtherscanProvider(
+      "rinkeby",
+      process.env.ETHERSCAN_API_KEY,
     );
-    const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, ethers.provider);
+    const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, etherscanProvider);
 
     const web3WallContractFactory = await ethers.getContractFactory("Web3Wall");
 
