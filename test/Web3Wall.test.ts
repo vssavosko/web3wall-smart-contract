@@ -24,7 +24,7 @@ describe("Web3Wall contract", function () {
     const vladoCoinContract = new ethers.Contract(
       process.env.VLADO_COIN_CONTRACT_ADDRESS!,
       vladoCoinAbi,
-      signer,
+      ethers.provider,
     );
 
     // console.log("2", vladoCoinContract);
@@ -33,12 +33,12 @@ describe("Web3Wall contract", function () {
 
     // console.log("3", contractWithSigner);
 
-    console.log("3.5", web3WallContract);
+    // console.log("3.5", web3WallContract);
     console.log("4", ethers.utils.parseEther("15000"));
 
     await contractWithSigner.transfer(web3WallContract.address, ethers.utils.parseEther("15000"));
 
-    console.log("4");
+    console.log("5");
   });
 
   it("The Web3Wall contract balance should be equal to 15000 VLA", async function () {
