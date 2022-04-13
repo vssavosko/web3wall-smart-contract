@@ -13,7 +13,7 @@ describe("Web3Wall contract", function () {
   beforeEach(async function () {
     const signer = new ethers.Wallet(process.env.PRIVATE_KEY!, ethers.provider);
 
-    console.log("1", signer);
+    // console.log("1", signer);
 
     const web3WallContractFactory = await ethers.getContractFactory("Web3Wall");
 
@@ -27,11 +27,14 @@ describe("Web3Wall contract", function () {
       signer,
     );
 
-    console.log("2", vladoCoinContract);
+    // console.log("2", vladoCoinContract);
 
     contractWithSigner = vladoCoinContract.connect(signer);
 
-    console.log("3", contractWithSigner);
+    // console.log("3", contractWithSigner);
+
+    console.log("3.5", web3WallContract);
+    console.log("4", ethers.utils.parseEther("15000"));
 
     await contractWithSigner.transfer(web3WallContract.address, ethers.utils.parseEther("15000"));
 
