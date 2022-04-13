@@ -28,13 +28,13 @@ jobs:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           DEPLOYED_CONTRACT_ADDRESS: ${{ secrets.DEPLOYED_CONTRACT_ADDRESS }}
           VLADO_COIN_CONTRACT_ADDRESS: ${{ secrets.VLADO_COIN_CONTRACT_ADDRESS }}
-        with:
-          PROD_ALCHEMY_KEY: ${{ secrets.PROD_ALCHEMY_KEY }}
-          DEV_ALCHEMY_KEY: ${{ secrets.DEV_ALCHEMY_KEY }}
-          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-          DEPLOYED_CONTRACT_ADDRESS: ${{ secrets.DEPLOYED_CONTRACT_ADDRESS }}
-          VLADO_COIN_CONTRACT_ADDRESS: ${{ secrets.VLADO_COIN_CONTRACT_ADDRESS }}
+        # with:
+        #   PROD_ALCHEMY_KEY: ${{ secrets.PROD_ALCHEMY_KEY }}
+        #   DEV_ALCHEMY_KEY: ${{ secrets.DEV_ALCHEMY_KEY }}
+        #   ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+        #   PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        #   DEPLOYED_CONTRACT_ADDRESS: ${{ secrets.DEPLOYED_CONTRACT_ADDRESS }}
+        #   VLADO_COIN_CONTRACT_ADDRESS: ${{ secrets.VLADO_COIN_CONTRACT_ADDRESS }}
       # - name: Create .env file
       #   run: |
       #     touch .env
